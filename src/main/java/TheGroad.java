@@ -29,26 +29,50 @@ public class TheGroad {
             }
             if (input.equals("list")) {
                 System.out.println(INDENT + LINE);
+
                 for (int i = 0 ; i < taskCount ; i += 1) {
                     System.out.print(INDENT + (i + 1) + ". ");
-                    System.out.println("[" + taskList[i].getStatusIcon() + "] "
-                            + taskList[i].description);
+                    System.out.println(taskList[i]);
                 }
+
                 System.out.println(INDENT + LINE);
+
             } else if (inputParts[0].equals("mark")) {
                 int taskNum = Integer.parseInt(inputParts[1]);
                 taskList[taskNum - 1].MarkAsDone();
                 System.out.println(INDENT + LINE + "\n" + MARKED);
-                System.out.println(INDENT + "[X] " + taskList[taskNum - 1].description);
+                System.out.println(INDENT + taskList[taskNum - 1]);
+                System.out.println(INDENT + LINE);
             } else if (inputParts[0].equals("unmark")) {
                 int taskNum = Integer.parseInt(inputParts[1]);
                 taskList[taskNum - 1].UnmarkAsDone();
                 System.out.println(INDENT + LINE + "\n" + UNMARKED);
-                System.out.println(INDENT + "[ ] " + taskList[taskNum - 1].description);
-            } else {
-                System.out.println(INDENT + LINE + "\n" + INDENT + "added: " + input + "\n" + INDENT + LINE);
-                taskList[taskCount] = new Task(input);
+                System.out.println(INDENT + taskList[taskNum - 1]);
+                System.out.println(INDENT + LINE);
+            } else if (inputParts[0].contains("Todo")) {
+                taskList[taskCount] = new Todo(inputParts[1]);
+                System.out.println(INDENT + LINE + "\n" + INDENT + "Got it. I've added this task: " );
                 taskCount += 1;
+                System.out.println(INDENT + taskList[taskCount - 1]);
+                System.out.println(INDENT + "You now have " + taskCount + " tasks in the list."
+                        + "\n" + INDENT + LINE);
+            } else if (inputParts[0].contains("Deadline")) {
+                String[] deadlineParts = inputParts[1].split("/by", 2);
+                taskList[taskCount] = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
+                System.out.println(INDENT + LINE + "\n" + INDENT + "Got it. I've added this task: " );
+                taskCount += 1;
+                System.out.println(INDENT + taskList[taskCount - 1]);
+                System.out.println(INDENT + "You now have " + taskCount + " tasks in the list."
+                        + "\n" + INDENT + LINE);
+            } else {
+                String[] eventPartsFrom = inputParts[1].split("/from");
+                String[] eventPartsTo = eventPartsFrom[1].split("/to");
+                taskList[taskCount] = new Event(eventPartsFrom[0].trim(), eventPartsTo[0].trim(), eventPartsTo[1].trim());
+                System.out.println(INDENT + LINE + "\n" + INDENT + "Got it. I've added this task: ");
+                taskCount += 1;
+                System.out.println(INDENT + taskList[taskCount - 1]);
+                System.out.println(INDENT + "You now have " + taskCount + " tasks in the list."
+                        + "\n" + INDENT + LINE);
             }
         }
 
