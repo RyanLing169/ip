@@ -89,6 +89,17 @@ public class TheGroad {
                     System.out.println(INDENT + taskList[taskCount - 1]);
                     System.out.println(INDENT + "You now have " + taskCount + " tasks in the list."
                             + "\n" + INDENT + LINE);
+                } else if (inputParts[0].contains("Delete")) {
+                    int taskNum = Integer.parseInt(inputParts[1]);
+                    check_Exists(taskNum, taskCount);
+                    taskCount -= 1;
+                    System.out.println("Noted. I've removed this task");
+                    System.out.println(INDENT + taskList[taskNum - 1]);
+                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    for (int i = taskNum - 1 ; i < taskCount ; i += 1)
+                    {
+                        taskList[i] = taskList[i + 1];
+                    }
                 } else {
                     taskList[taskCount] = Event.of(inputParts[1]);
                     System.out.println(INDENT + LINE + "\n" + INDENT + "Got it. I've added this task: ");
