@@ -23,5 +23,11 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "]" + " " + description;
     }
+
+    public String toFileFormat() {
+        return "T | " + (isDone ? "1" : "0") + " | " + description;
+    }
 }
+
+
 

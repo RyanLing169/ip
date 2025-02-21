@@ -18,7 +18,10 @@ public class TheGroad {
 
         Scanner scanner = new Scanner(System.in);
         Task[] taskList = new Task[100];
-        int taskCount = 0;
+
+        Storage storage = new Storage();
+        int taskCount = storage.loadTasks(taskList);
+
 
         while (true) {
             String input = scanner.nextLine();
@@ -48,29 +51,39 @@ public class TheGroad {
                 break;
             }
             try {
+                    System.out.println(INDENT + LINE);
                 if (input.equals("list")) {
-                    System.out.println(INDENT + LINE);
-                    check_taskCount(taskCount);
-                    for (int i = 0; i < taskCount; i += 1) {
-                        System.out.print(INDENT + (i + 1) + ". ");
-                        System.out.println(taskList[i]);
+                    System.out.println(INDENT + "Here are your tasks:");
+
+                    if (taskCount == 0) {
+                        System.out.println(INDENT + "No tasks available.");  // 🔹 Show message if empty
+                    } else {
+                        for (int i = 0; i < taskCount; i++) {
+                            System.out.println(INDENT + (i + 1) + ". " + taskList[i]);
+                        }
                     }
-
                     System.out.println(INDENT + LINE);
-
                 } else if (inputParts[0].equals("mark")) {
-                    int taskNum = Integer.parseInt(inputParts[1]);
+                    int taskNum = Integer.parseInt(inputParts[1]) - 1;
+
                     check_Exists(taskNum, taskCount);
                     check_Markable(taskList[taskNum - 1].isDone);
-                    taskList[taskNum - 1].MarkAsDone();
+
+                    taskList[taskNum].MarkAsDone();
+                    storage.saveTasks(taskList, taskCount);
+
                     System.out.println(INDENT + LINE + "\n" + MARKED);
-                    System.out.println(INDENT + taskList[taskNum - 1]);
+                    System.out.println(INDENT + taskList[taskNum]);
                     System.out.println(INDENT + LINE);
                 } else if (inputParts[0].equals("unmark")) {
-                    int taskNum = Integer.parseInt(inputParts[1]);
+                    int taskNum = Integer.parseInt(inputParts[1]) - 1;
+
                     check_Exists(taskNum, taskCount);
                     check_Unmarkable(taskList[taskNum - 1].isDone);
-                    taskList[taskNum - 1].UnmarkAsDone();
+
+                    taskList[taskNum].UnmarkAsDone();
+                    storage.saveTasks(taskList, taskCount);
+
                     System.out.println(INDENT + LINE + "\n" + UNMARKED);
                     System.out.println(INDENT + taskList[taskNum - 1]);
                     System.out.println(INDENT + LINE);
@@ -78,6 +91,9 @@ public class TheGroad {
                     taskList[taskCount] = Todo.of(inputParts[1]);
                     System.out.println(INDENT + LINE + "\n" + INDENT + "Got it. I've added this task: ");
                     taskCount += 1;
+
+                    storage.saveTasks(taskList, taskCount);
+
                     System.out.println(INDENT + taskList[taskCount - 1]);
                     System.out.println(INDENT + "You now have " + taskCount + " tasks in the list."
                             + "\n" + INDENT + LINE);
@@ -86,6 +102,9 @@ public class TheGroad {
                     taskList[taskCount] = new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim());
                     System.out.println(INDENT + LINE + "\n" + INDENT + "Got it. I've added this task: ");
                     taskCount += 1;
+
+                    storage.saveTasks(taskList, taskCount);
+
                     System.out.println(INDENT + taskList[taskCount - 1]);
                     System.out.println(INDENT + "You now have " + taskCount + " tasks in the list."
                             + "\n" + INDENT + LINE);
@@ -93,6 +112,9 @@ public class TheGroad {
                     taskList[taskCount] = Event.of(inputParts[1]);
                     System.out.println(INDENT + LINE + "\n" + INDENT + "Got it. I've added this task: ");
                     taskCount += 1;
+
+                    storage.saveTasks(taskList, taskCount);
+
                     System.out.println(INDENT + taskList[taskCount - 1]);
                     System.out.println(INDENT + "You now have " + taskCount + " tasks in the list."
                             + "\n" + INDENT + LINE);
