@@ -119,6 +119,9 @@ public class TheGroad {
                     {
                         taskList[i] = taskList[i + 1];
                     }
+
+                    storage.saveTasks(taskList, taskCount);
+
                 } else {
                     taskList[taskCount] = Event.of(inputParts[1]);
                     System.out.println(INDENT + LINE + "\n" + INDENT + "Got it. I've added this task: ");
