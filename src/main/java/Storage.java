@@ -34,14 +34,14 @@ public class Storage {
         }
     }
 
-    public int loadTasks(Task[] taskList) {
+    public int loadTasks(TaskList taskList) {
         int taskCount = 0;
         try  (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))){
             String line;
             while ((line = reader.readLine()) != null && taskCount < MAX_TASKS) {
                 Task task = parseTask(line);
                 if (task != null) {
-                    taskList[taskCount] = task;
+                    taskList.addTaskSilent(task);
                     taskCount++;
                 }
             }

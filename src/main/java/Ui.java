@@ -27,14 +27,44 @@ public class Ui {
         return scanner.nextLine();
     }
 
-    public void printLine() {
+    public static void printLine() {
         System.out.println(LINE);
     }
     public void printError(String message) {
         System.out.println(INDENT + "Error:" + message);
     }
 
-    public void printMessage(String message) {
+    public static void printMessage(String message) {
         System.out.println(INDENT + message);
+    }
+
+    public static void printMarked(int taskNum, Task task) {
+        printLine();
+        printMessage("Nice! I've marked this task as done:");
+        printMessage(taskNum + task.toString());
+        printLine();
+    }
+
+    public static void printUnmarked(int taskNum, Task task) {
+        printLine();
+        printMessage("Nice! I've marked this task as not done yet:");
+        printMessage(taskNum + task.toString());
+        printLine();
+    }
+
+    public static void printAddedTask(int taskNum, Task task, int taskCount) {
+        printLine();
+        printMessage("Got it. I've added this task:");
+        printMessage(task.toString());
+        printMessage("You now have " + taskCount + " tasks in the list.");
+        printLine();
+    }
+
+    public static void printDeleted(int taskNum, Task task, int taskCount) {
+        printLine();
+        printMessage("Noted. I've removed this task:");
+        printMessage(task.toString());
+        printMessage("You now have " + taskCount + " tasks in the list.");
+        printLine();
     }
 }
