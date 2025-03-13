@@ -1,10 +1,17 @@
+/**
+ * Represents a chatbot designed to help users track different kinds of tasks.
+ */
 public class TheGroad {
     private Ui ui;              // Handles user interaction
     private Storage storage;    // Handles file storage
     private TaskList taskList;  // Manages task data
     private  Parser parser;      // Parses user input
 
-
+    /**
+     * Constructs a new instance of TheGroad class.
+     *
+     * @param filePath The location where the class will be instantiated.
+     */
     public TheGroad(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage();
@@ -14,7 +21,9 @@ public class TheGroad {
         storage.loadTasks(taskList); // Load saved tasks from file
     }
 
-
+    /**
+     * Constantly loops to take in user input and output replies.
+     */
     public void run() {
         ui.showWelcome();
         while (true) {
@@ -28,7 +37,13 @@ public class TheGroad {
         }
     }
 
-
+    /**
+     * Processes all commands that the user inputs and executes them as instructed.
+     *
+     * @param command The enum classifying the command to be executed.
+     * @param input The user's input.
+     * @throws TheGroadException If the input is invalid or missing.
+     */
     private void processCommand(CommandType command, String input) throws TheGroadException {
         switch (command) {
         case LIST:
