@@ -171,4 +171,7 @@ ____________________________________________________________
 
 ```
 Bye. Hope to see you again soon!
+Process finished with exit code 0
 ```
+
+---
