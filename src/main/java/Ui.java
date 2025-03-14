@@ -22,6 +22,11 @@ public class Ui {
     public void showWelcome() {
         System.out.println(LINE + "____");
         System.out.println("Hello! I'm THE GROAD");
+        System.out.println("      _     _   ");
+        System.out.println("     (o\\~~~/o)  ");
+        System.out.println("      \\_   _/   ");
+        System.out.println("     (_     _)  ");
+        System.out.println("       \\_._/   ");
         System.out.println("What can I do for you?");
         System.out.println(LINE + "____");
     }
