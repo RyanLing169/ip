@@ -32,6 +32,8 @@ public class Parser {
             return CommandType.DELETE;
         case "bye":
             return CommandType.BYE;
+        case "find":
+            return CommandType.FIND;
         default:
             throw new TheGroadException("OOPS!! Sorry, but I don't know what that means :-(");
         }

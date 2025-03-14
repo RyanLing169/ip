@@ -113,11 +113,33 @@ public class TaskList {
         ui.printLine();
     }
 
+
     /**
      * Returns the tasks in the taskList.
      *
      * @return The tasks in the taskList.
      */
+
+    public void findTask(String keyword) {
+        Ui.printLine();
+
+        int count = 1;
+
+        for (int i = 0 ; i < taskCount; i += 1) {
+            if (tasks[i].description.contains(keyword)) {
+                Ui.printMessage(INDENT + count + "." + tasks[i]);
+                count += 1;
+            } else if (count == 1 && i == taskCount - 1){
+                Ui.printMessage(INDENT + "SORRY! No tasks contain the keyword :");
+                Ui.printMessage(INDENT + keyword);
+                Ui.printMessage(INDENT + ":-(");
+            }
+        }
+
+        Ui.printLine();
+    }
+
+
     public Task[] getTasks() {
         return tasks;
     }
