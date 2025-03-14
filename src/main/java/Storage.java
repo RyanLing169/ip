@@ -2,10 +2,17 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a storage class responsible for saving and loading the task list into a .txt document.
+ */
 public class Storage {
     private static final String FILE_PATH = "./data/TheGroad.txt";
     private static final int MAX_TASKS = 100;
 
+    /**
+     * Checks if the .txt  file exist and creates a new .txt file if there one does not
+     * already exist.
+     */
     public Storage() {
         ensureFileExists();
     }
@@ -25,6 +32,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the existing tasklist to the .txt document for future reference.
+     * @param taskList The current working tasklist containing all added tasks the user wishes to save.
+     * @param taskCount The number of tasks in the task list.
+     */
     public void saveTasks(Task[] taskList, int taskCount) {
         try  (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))){
             for (int i = 0; i < taskCount; i++) { // Only save valid tasks
@@ -36,6 +48,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Extracts and loads the saved tasks into an instance of the TaskList class from the .txt file.
+     *
+     * @param taskList The instance of TaskList we load the saved tasks into.
+     * @return the number of tasks saved and in the .txt file and hence loaded into the TaskList class.
+     */
     public int loadTasks(TaskList taskList) {
         int taskCount = 0;
         try  (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))){
@@ -53,6 +71,13 @@ public class Storage {
         return taskCount;
     }
 
+    /**
+     * parses the task saved in the .txt file to be added to the taskList.
+     *
+     * @param line The line in the .txt file that represents the saved task to be added
+     *             back to the taskList.
+     * @return The saved task converted into an instance of the Task class.
+     */
     private Task parseTask(String line) {
         try {
             String[] parts = line.split(" \\| ");
