@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+
 /**
  * Represents a deadline task. A <code>Deadline</code> object corresponds to a Task
  * represented by a description and a deadline the task is due by,
@@ -6,7 +10,7 @@
 
 public class Deadline extends Task {
 
-    protected String by;
+    protected LocalDate by;
 
     /**
      * Constructs a new instance of the Deadline class.
@@ -14,7 +18,8 @@ public class Deadline extends Task {
      * @param description The information on what the task entails.
      * @param by The deadline for this Deadline task.
      */
-    public Deadline(String description, String by) {
+
+    public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
     }
@@ -26,7 +31,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     /**

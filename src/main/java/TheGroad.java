@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a chatbot designed to help users track different kinds of tasks.
  */
@@ -67,7 +70,7 @@ public class TheGroad {
             break;
         case DEADLINE:
             String[] deadlineDetails = parser.extractDeadlineDetails(input);
-            taskList.addTask(new Deadline(deadlineDetails[0], deadlineDetails[1]));
+            taskList.addTask(new Deadline(deadlineDetails[0], LocalDate.parse(deadlineDetails[1])));
             storage.saveTasks(taskList.getTasks(), taskList.getTaskCount());
             break;
         case EVENT:
