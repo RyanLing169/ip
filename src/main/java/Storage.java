@@ -1,4 +1,6 @@
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Storage {
     private static final String FILE_PATH = "./data/TheGroad.txt";
@@ -62,7 +64,7 @@ public class Storage {
             if (type.equals("T")) {
                 task = new Todo(description);
             } else if (type.equals("D")) {
-                task = new Deadline(description, parts[3]);
+                task = new Deadline(description, LocalDate.parse(parts[3]));
             } else if (type.equals("E")) {
                 task = new Event(description, parts[3], parts[4]);
             } else {

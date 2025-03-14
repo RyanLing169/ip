@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class TheGroad {
     private Ui ui;              // Handles user interaction
     private Storage storage;    // Handles file storage
@@ -52,7 +55,7 @@ public class TheGroad {
             break;
         case DEADLINE:
             String[] deadlineDetails = parser.extractDeadlineDetails(input);
-            taskList.addTask(new Deadline(deadlineDetails[0], deadlineDetails[1]));
+            taskList.addTask(new Deadline(deadlineDetails[0], LocalDate.parse(deadlineDetails[1])));
             storage.saveTasks(taskList.getTasks(), taskList.getTaskCount());
             break;
         case EVENT:
