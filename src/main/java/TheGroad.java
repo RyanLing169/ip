@@ -68,6 +68,10 @@ public class TheGroad {
             taskList.deleteTask(deleteIndex);
             storage.saveTasks(taskList.getTasks(), taskList.getTaskCount());
             break;
+        case FIND:
+            String keyword = parser.extractDescription(input);
+            taskList.findTask(keyword);
+            break;
         case BYE:
             ui.showGoodbye();
             System.exit(0);
